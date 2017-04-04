@@ -1,2 +1,14 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.panel-heading .h3-buttons {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: normal;
+  width: 75%;
+  padding-top: 8px;
+}
+.panel-heading .btn {
+  margin-left: 10px;
+}
