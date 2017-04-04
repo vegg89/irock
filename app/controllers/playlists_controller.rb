@@ -3,26 +3,24 @@ class PlaylistsController < ApplicationController
   before_action :set_playlist, only: [:show, :edit, :update, :destroy]
 
   def index
-    @playlists = Playlist.all
+    @playlists = current_user.playlists.all
   end
 
   def show
   end
 
   def new
-    @playlist = Playlist.new
-    @playlist.tracks.build
+    @playlist = current_user.playlists.build
   end
 
   def edit
   end
 
   def create
-    @playlist = Playlist.new(playlist_params)
-    @playlist.user = current_user
+    @playlist = current_user.playlists.new(playlist_params)
 
     respond_to do |format|
-      if @playlist.save!
+      if @playlist.save
         format.html { redirect_to @playlist, notice: 'Playlist was successfully created.' }
       else
         format.html { render :new }
@@ -49,7 +47,7 @@ class PlaylistsController < ApplicationController
 
   private
     def set_playlist
-      @playlist = Playlist.find(params[:id])
+      @playlist = current_user.playlists.find(params[:id])
     end
 
     def playlist_params
