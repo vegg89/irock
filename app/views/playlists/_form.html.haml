@@ -1,0 +1,17 @@
+= simple_form_for(@playlist, wrapper: :vertical_input_group) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :name
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title.h3-buttons.pull-left
+        Tracks
+      = link_to_add_association f, :tracks, class: 'btn btn-primary pull-right', id: 'add-track-button' do
+        %i.fa.fa-plus
+        Add track
+      .clearfix
+    .panel-body#tracks-container
+      = f.simple_fields_for :tracks do |t|
+        = render 'track_fields', f: t
+  = f.button :submit, class: 'btn btn-primary'
+  = link_to 'Cancel', playlists_path, class: 'btn btn-link'

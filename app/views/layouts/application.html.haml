@@ -1,9 +1,32 @@
 !!! 5
 %html
   %head
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
     %title Irock
     = csrf_meta_tags
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
   %body
-    = yield
+    %nav.navbar.navbar-inverse
+      .container_fluid
+        .navbar-header
+          %button.navbar-toggle.collapsed{type: "button", aria: {expanded: "false"}, data: {toggle: "collapse", target: "#ir-example-navbar-collapse"}}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{href: "#"} iRock
+        #ir-example-navbar-collapse.collapse.navbar-collapse
+          - if current_user
+            %ul.nav.navbar-nav
+              %li
+                = link_to "Playlists", playlists_path
+            %p.navbar-text.navbar-right
+              Signed in as:
+              = current_user.email
+              |
+              = link_to "Log-out", destroy_user_session_path, method: :delete
+    .container
+      - flash.each do |type, message|
+        = create_flash(type, message)
+      = yield
